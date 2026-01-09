@@ -3,6 +3,7 @@ package infrastructure;
 import application.PaymentGateway;
 import domain.payment.Plata;
 
+
 public class PaymentGatewayAdapter implements PaymentGateway {
 
     @Override

@@ -9,17 +9,21 @@ public class PlataApplicationService {
 
     private final PlataFactory plataFactory;
     private final PaymentGateway paymentGateway;
+    private final NotificationGateway notificationGateway;
 
     public PlataApplicationService(PlataFactory plataFactory,
-                                   PaymentGateway paymentGateway) {
+                                   PaymentGateway paymentGateway,
+                                   NotificationGateway notificationGateway) {
         this.plataFactory = plataFactory;
         this.paymentGateway = paymentGateway;
+        this.notificationGateway = notificationGateway;
     }
 
     public Plata initiazaPlata(int idContract,
                                int idRata,
                                BigDecimal suma,
-                               PaymentType tip) {
+                               PaymentType tip,
+                               String destinatarNotificare) {
 
         // 1. Cream obiectul Plata folosind FACTORY METHOD
         Plata plata = plataFactory.createPlata(idContract, idRata, tip, suma);
@@ -29,11 +33,22 @@ public class PlataApplicationService {
 
         if (succes) {
             plata.marcheazaConfirmata();
+            notificationGateway.trimiteNotificare(
+                    destinatarNotificare,
+                    "Plata pentru contractul " + idContract +
+                            " si rata " + idRata + " a fost confirmata. Suma: " + suma
+            );
         } else {
             plata.marcheazaRespinsa();
+            notificationGateway.trimiteNotificare(
+                    destinatarNotificare,
+                    "Plata pentru contractul " + idContract +
+                            " si rata " + idRata + " a fost respinsa."
+            );
         }
 
         // aici, in viitor, vei apela repository, servicii de domeniu etc.
         return plata;
     }
+
 }

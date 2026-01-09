@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class Plata {
 
-    private int idPlata;              // poate rămâne 0 dacă nu ai persistenta
+    private int idPlata;              // poate rămâne 0 dacă nu ai persistență
     private final int idContract;
     private final int idRata;
     private final PaymentType tip;
@@ -36,5 +36,37 @@ public class Plata {
         this.statusPlata = "RESPINSA";
     }
 
-    // getter-e dupa nevoie
+    // === getter-e folosite în Main ===
+
+    public int getIdPlata() {
+        return idPlata;
+    }
+
+    public int getIdContract() {
+        return idContract;
+    }
+
+    public int getIdRata() {
+        return idRata;
+    }
+
+    public PaymentType getTip() {
+        return tip;
+    }
+
+    public BigDecimal getSuma() {
+        return suma;
+    }
+
+    public LocalDate getDataPlata() {
+        return dataPlata;
+    }
+
+    public String getStatusPlata() {
+        return statusPlata;
+    }
+
+    public String getCanalPlata() {
+        return canalPlata;
+    }
 }
